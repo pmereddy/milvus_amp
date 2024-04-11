@@ -1,16 +1,6 @@
 #!/bin/bash
 
-daemonize() {
-  pid=$(/bin/bash -c "setsid nohup sh -c '$@' >/dev/null 2>&1 & echo \$!")
-  
-  # Check for successful fork
-  if [[ -n "$pid" ]]; then
-    disown -a >/dev/null 2>&1
-  else
-    echo "Failed to daemonize!"
-  fi
-
-  exit 0
-}
-
-daemonize "$@"
+rm -rf $HOME/milvus-data
+$HOME/.local/bin/milvus-server --data $HOME/milvus-data --authorization-enabled true &
+pid="$!"
+disown -a $pid
