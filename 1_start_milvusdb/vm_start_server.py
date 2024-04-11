@@ -2,6 +2,7 @@ from milvus import default_server
 from pymilvus import connections, Collection, utility
 import multiprocessing
 import time
+import os
  
 def start_milvus():
     try:
