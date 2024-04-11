@@ -1,0 +1,99 @@
+name: MilvusDB
+description: |
+  Host a MilvusDB server
+
+author: Cloudera Inc.
+specification_version: 1.0
+prototype_version: 1.0
+date: "2024-04-10"
+
+
+environment_variables:
+  COLLECTION_NAME:
+    default: "sample"
+    description: "Enter preferred collection name for Milvus DB to store document embeddings in."
+    required: false
+
+  POPULATE_SAMPLE_DATA:
+    default: "no"
+    description: "Populate sample document embeddings."
+    required: false
+
+  MILVUS_AUTH:
+    default: "true"
+    description: "Enable authentication on MilvusDB."
+    required: true
+
+  MILVUS_USER:
+    default: "admin"
+    description: "username for MilvusDB. Required only if MILVUS_AUTH is true"
+    required: true
+
+  MILVUS_PASSWORD:
+    default: "admin"
+    description: "Password for MILVUS_USER. Required only if MILVUS_AUTH is true"
+    required: true
+
+  MILVUS_LOG_LEVEL:
+    default: "INFO"
+    description: "MilvusDB server log level."
+    required: false
+
+runtimes:
+  - editor: JupyterLab
+    kernel: Python 3.10
+    edition: Standard
+
+
+tasks:
+  - type: run_session
+    name: Install Dependencies
+    script: 0_install_dependencies/vm_install_dependencies.py
+    short_summary: Install MilvusDB Dependencies
+    kernel: python3
+    cpu: 2
+    memory: 8
+    
+  - type: start_application
+    name: MilvusDB Server
+    subdomain: cml-milvus-server
+    script: 1_start_milvusdb/vm_start_server.py
+    short_summary: Start MilvusDB Server
+    long_summary: Start MilvusDB Server. Remember to enable unauthenticated app access for external access to the UI.
+    cpu: 2
+    memory: 8
+    environment_variables:
+      TASK_TYPE: START_APPLICATION
+
+  - type: run_session
+    name: Create application user
+    script: 2_configure_milvusdb/configure_milvus.py
+    short_summary: Create application user on MilvusDB
+    long_summary: If authentication is enabled, create a user for application
+    kernel: python3
+    cpu: 2
+    memory: 4
+
+  - type: run_session
+    name: Verify connectivity 
+    script: 3_verify_connectivity/vm_validate_milvus_client.py
+    short_summary: Verify connectivity 
+    long_summary: Verify connectivity with the selected configuration parameters
+    kernel: python3
+    cpu: 2
+    memory: 4
+
+#  - type: create_job
+#    name: Populate Milvus Vector DB with sample documents embeddings
+#    entity_label: milvus_vectordb_insert
+#    script: 4_populate_milvusdb/populate_sample_vectors.py 
+#    arguments: None
+#    short_summary: Create job to push vectors with document embeddings to Milvus DB. 
+#    cpu: 2
+#    memory: 8
+#    environment:
+#      TASK_TYPE: CREATE/RUN_JOB
+
+#  - type: run_job
+#    entity_label: milvus_vectordb_insert
+#    short_summary: Populate Milvus Vector DB with documents embeddings (This will only run if you set "POPULATE_SAMPLE_DATA" with "YES" as an environment variable.)
