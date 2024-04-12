@@ -40,7 +40,7 @@ environment_variables:
     required: false
 
 runtimes:
-  - editor: Workbench
+  - editor: JupyterLab
     kernel: Python 3.10
     edition: Standard
 
