@@ -5,6 +5,7 @@ import subprocess
 packages = [
     ("milvus", None),
     ("pymilvus", None)
+    ("gradio", None)
 ]
 
 # Iterate over the packages and install them one by one
