@@ -25,12 +25,12 @@ environment_variables:
     required: true
 
   MILVUS_USER:
-    default: "admin"
+    default: "administrator"
     description: "username for MilvusDB. Required only if MILVUS_AUTH is true"
     required: true
 
   MILVUS_PASSWORD:
-    default: "admin"
+    default: "password"
     description: "Password for MILVUS_USER. Required only if MILVUS_AUTH is true"
     required: true
 

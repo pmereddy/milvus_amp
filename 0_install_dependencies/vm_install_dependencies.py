@@ -5,6 +5,7 @@ import subprocess
 packages = [
     ("milvus", None),
     ("pymilvus", None),
+    ("protobuf", None),
     ("gradio", None)
 ]
 
