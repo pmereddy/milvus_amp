@@ -9,9 +9,12 @@ auth=os.environ.get('MILVUS_AUTH', 'false').lower()
 if auth!='false' and auth!='true':
     auth='false'
 
+with open('/home/cdsw/server.ip', 'r') as f:
+    host = f.readline().strip()
+
 if auth == 'true':
     # connect with default creds
-    client = milvus_client.MilvusClient(host='127.0.0.1', port=default_server.listen_port, user='root',password='Milvus')
+    client = milvus_client.MilvusClient(host=host, port=default_server.listen_port, user='root',password='Milvus')
   
     # Create user provided by the user 
     default_na='_not_given_'

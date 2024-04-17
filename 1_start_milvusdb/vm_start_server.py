@@ -1,12 +1,17 @@
 import subprocess
 import os
 import gradio
+import socket
 
 def uppercase(text):
     return (text, text.upper())
 
 def main():
     print(subprocess.run(["nohup $HOME/.local/bin/milvus-server --data $HOME/milvus-data --authorization-enabled true >/dev/null 2>&1 &"], shell=True))
+
+    with open("server.ip", "w") as file:
+        ip=socket.gethostbyname(socket.gethostname())
+        file.write(f"{ip}\n")
 
     # Configure gradio QA app 
     print("Configuring dummy gradio app")
