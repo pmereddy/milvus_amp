@@ -67,21 +67,21 @@ tasks:
 
   - type: run_session
     name: Create application user
-    script: 2_configure_milvusdb/configure_milvus.py
+    script: 2_configure_milvus/configure_milvus.py
     short_summary: Create application user on MilvusDB
     long_summary: If authentication is enabled, create a user for application
     kernel: python3
     cpu: 2
     memory: 4
 
-  - type: run_session
-    name: Verify connectivity 
-    script: 3_verify_connectivity/vm_validate_milvus_client.py
-    short_summary: Verify connectivity 
-    long_summary: Verify connectivity with the selected configuration parameters
-    kernel: python3
-    cpu: 2
-    memory: 4
+#  - type: run_session
+#    name: Verify connectivity 
+#    script: 3_verify_connectivity/vm_validate_milvus_client.py
+#    short_summary: Verify connectivity 
+#    long_summary: Verify connectivity with the selected configuration parameters
+#    kernel: python3
+#    cpu: 2
+#    memory: 4
 
 #  - type: create_job
 #    name: Populate Milvus Vector DB with sample documents embeddings
