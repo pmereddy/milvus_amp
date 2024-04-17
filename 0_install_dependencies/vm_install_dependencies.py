@@ -4,7 +4,7 @@ import subprocess
 
 packages = [
     ("milvus", None),
-    ("pymilvus", None)
+    ("pymilvus", None),
     ("gradio", None)
 ]
 
